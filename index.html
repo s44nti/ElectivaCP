@@ -1,14 +1,229 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/IDX/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-    <script type="module" crossorigin src="/IDX/assets/index-DjSg4v9e.js"></script>
-    <link rel="stylesheet" crossorigin href="/IDX/assets/index-CmvzVySl.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rutas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #333;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2rem;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      background-color: #007bff;
+      padding: 10px 0;
+      margin-bottom: 10px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 0 5px;
+      background-color: #007bff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav a:hover {
+      background-color: #0056b3;
+    }
+
+    .nav .active {
+      background-color: #0056b3;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+      padding: 20px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      border-top: 1px solid #fff;
+      padding-top: 10px;
+    }
+
+    /* Estilos para la galería */
+    .gallery {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      text-align: center;
+      gap: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 5px;
+    }
+
+    .gallery-text {
+      font-size: 1.5rem;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .arrow-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .arrow {
+      font-size: 2rem;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .arrow-left {
+      margin-right: 10px;
+    }
+
+    .arrow-right {
+      margin-left: 10px;
+    }
+
+    /* Estilos para los niveles de estudio */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center; /* Cambiado para centrar los elementos */
+      margin-bottom: 20px;
+    }
+
+    .radio-group label {
+      font-size: 1.2rem;
+    }
+
+    #selected-level {
+      font-size: 1.2rem;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rutas</h1>
+  <div class="nav">
+    <a href="#inicio" class="active" onclick="showSection('inicio')">Inicio</a>
+    <a href="#ejercicio1" onclick="showSection('ejercicio1')">Ejercicio1</a>
+    <a href="#ejercicio2" onclick="showSection('ejercicio2')">Ejercicio2</a>
+  </div>
+
+  <!-- Secciones -->
+  <div id="inicio" class="section active">
+    <h2>Realizado por:</h2>
+    <p>David Santiago Vega Correa</p>
+    <p>Jonathan Daniel Devia Pineda</p>
+    <p>Juan Felipe Grimaldo Marín</p>
+  </div>
+
+  <div id="ejercicio1" class="section">
+    <h2>Seleccione su nivel de estudios</h2>
+    <div class="radio-group">
+      <label><input type="radio" name="nivel" value="Primario" onclick="updateSelection(this)"> Primario</label>
+      <label><input type="radio" name="nivel" value="Secundario" onclick="updateSelection(this)"> Secundario</label>
+      <label><input type="radio" name="nivel" value="Universitario" onclick="updateSelection(this)"> Universitario</label>
+      <label><input type="radio" name="nivel" value="Maestría" onclick="updateSelection(this)"> Maestría</label>
+      <label><input type="radio" name="nivel" value="Especialización" onclick="updateSelection(this)"> Especialización</label>
+      <label><input type="radio" name="nivel" value="Certificación React" onclick="updateSelection(this)"> Certificación React</label>
+    </div>
+    <p id="selected-level">Estudio seleccionado: Ninguno</p>
+  </div>
+
+  <div id="ejercicio2" class="section">
+    <h2>Equipos del Fútbol Profesional Colombiano</h2>
+    <div class="gallery">
+      <div class="arrow-container">
+        <button class="arrow arrow-left" onclick="changeImage(-1)">&#8592;</button>
+      </div>
+      <div class="gallery-image">
+        <img id="team-image" src="imagenes/Nacional.png" alt="Atlético Nacional">
+        <p id="team-name" class="gallery-text">Atlético Nacional</p>
+      </div>
+      <div class="arrow-container">
+        <button class="arrow arrow-right" onclick="changeImage(1)">&#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Desarrollado por el equipo.</p>
+  </div>
+
+  <script>
+    // Función para mostrar la sección activa
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+
+      document.getElementById(sectionId).classList.add('active');
+
+      const links = document.querySelectorAll('.nav a');
+      links.forEach(link => {
+        link.classList.remove('active');
+      });
+
+      document.querySelector(`[href="#${sectionId}"]`).classList.add('active');
+    }
+
+    // Función para actualizar el nivel de estudios seleccionado
+    function updateSelection(radio) {
+      const selectedText = radio.value;
+      document.getElementById('selected-level').textContent = `Estudio seleccionado: ${selectedText}`;
+    }
+
+    // Galería de imágenes
+    const teamImages = [
+      { name: "Atlético Nacional", url: "imagenes/Nacional.png" },
+      { name: "Millonarios", url: "imagenes/Millonarios.png" },
+      { name: "América de Cali", url: "imagenes/America.png" },
+      { name: "Independiente Santa Fe", url: "imagenes/SantaFe.png" },
+      { name: "Tolima", url: "imagenes/Tolima.png" }
+    ];
+
+    let currentIndex = 0;
+
+    function changeImage(direction) {
+      currentIndex += direction;
+
+      if (currentIndex < 0) {
+        currentIndex = teamImages.length - 1; // Volver al final si es el primer elemento
+      } else if (currentIndex >= teamImages.length) {
+        currentIndex = 0; // Volver al principio si es el último elemento
+      }
+
+      // Cambiar la imagen y el nombre
+      document.getElementById('team-image').src = teamImages[currentIndex].url;
+      document.getElementById('team-name').textContent = teamImages[currentIndex].name;
+    }
+  </script>
+</body>
 </html>
